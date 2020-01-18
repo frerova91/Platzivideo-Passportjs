@@ -1,0 +1,59 @@
+{
+  "name": "movies-api",
+  "version": "1.0.0",
+  "description": "1.- creamos la carpeta donde estamos movies-api     2.- npm init -y , para iniciar el proyecto     3.- Copiamos las reglas de eslint de platzivideo",
+  "main": "index.js",
+  "scripts": {
+    "dev": "DEBUG=app:* & nodemon index",
+    "start": "NODE_ENV=production & node index.js",
+    "retoAB": "DEBUG=app:* & nodemon ./retos/anoBisiesto",
+    "test": " mocha --exit",
+    "cover": "nyc npm run test",
+    "report": "nyc report --reporter=html && firefox coverage/index.html",
+    "inspect": "DEBUG=express:*,app:* nodemon --inspect index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/boom": "^9.0.0",
+    "@hapi/joi": "^17.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "mocha": "^7.0.0",
+    "nodemon": "^2.0.2",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1",
+    "proxyquire": "^2.1.3",
+    "sinon": "^8.0.4",
+    "supertest": "^4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "routes",
+      "services",
+      "lib",
+      "utils"
+    ]
+  }
+}

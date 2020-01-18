@@ -1,0 +1,17 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  //partiendo de la config recomendada y con compatibilidad con prettier
+  "extends": ["eslint:recommended", "prettier"],
+  //tipos de variables de entorno aceptadas
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  //en vez de generar un error genera un warning en consola.
+  "rules": {
+    "no-console": "warn"
+  }
+}
