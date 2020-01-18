@@ -36,3 +36,31 @@
 # 4.- Implementando el POST y DELETE de las peliculas de usuario En está clase vamos a continuar con la implementación de las rutas del usuario, en esta ocación vamos a hacer la implementación de la creación de las peliculas de usuario y la implementación de la eliminación de las peliculas del usuario dentro de /routes/userMovies.js .
 
     .-Ahora para poder usar nuestra ruta, debemos ir a nuestro archivo index.js de nuestro proyecto y aquí vamos a hacer uso de nuestra ruta.
+
+# 5.- Cómo conectarnos a la base de datos esta en los archivos del curso documento
+
+# 6.-Configurando passport.js En está clase vamos a explorar la configuración inicial de passport.js. PassportJS es un middleware para express que nos permite implementar distitas estrategias de autenticación de una manera muy fácil y simple.
+
+    .-npm i passport jsonwebtoken passport-http passport-jwt
+    .-npm i -D chalk, permite pintar colores en la terminal
+    .-Agregar en le archivo .env y .env.example las siguientes variables de entorno:
+
+        // USERS, para testear la api
+        DEFAULT_ADMIN_PASSWORD=
+        DEFAULT_USER_PASSWORD=
+
+        // AUTH, firma los jwt generando una clave en www.keygen.io WEP 256-bit key
+        AUTH_JWT_SECRET=
+
+        // API KEYS, es la autorizacion entre el frontend y backend de la app, generado aleatoriamente por medio de scripts, cada script tiene una linea comentada que generara en la db lo requerido para que funcione.
+
+        PUBLIC_API_KEY_TOKEN=
+        ADMIN_API_KEY_TOKEN=
+
+    .-Hay que copiar los script la carpeta en el proyecto y ejecutarlos en linea de comandos oir medio de la linea comentada en cada uno de ellos y se deberian de crear en el db de mongo los api-keys necesaria para colocarlas en .env, asi como la informacion relevante de usuarios y peliculas.
+
+    .-La conexion con la db deberia ser automatica porque ya esta configurada en este proyecto de otra forma tendrias que hacer la implementacion de la conexion con la base de datos.
+
+# 7 .-Implementación de BasicStrategy con Passport.js, En esta clase aprenderás como implementar estrategias de autenticación haciendo uso de Passport.js. Las estrategias de autenticación nos sirven para determinar como nos vamos a autenticar, haciendo uso de estas estrategias en las diferentes rutas y así definir de donde saldra el usuario que vamos a usar de ahí en adelante, vamos a verlo como se hace en el código.
+
+        .-Lo primero que vamos a hacer es crear un carpetas y archivos /utils/auth/strategies y dentro los archivos basic.js.
