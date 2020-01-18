@@ -24,4 +24,15 @@
 
     .- instalamos, npm i bcrypt para encriptar las contraseñas
 
-# 3.-
+# 3.- Agregando la colección de películas de usuario En la clase anterior agregamos el servicio de los usuarios, esto nos va ha permitir obtener usuarios de la base de datos. Ahora vamos a agregar el schema, la ruta y el servicio de las peliculas del usuario. Esta configuración nos servirá más adelante cuando un usuario autentique y agregue una pelicula a su lista, lo pueda ver reflejado en la aplicación.
+
+    .-Vamos a utils/schemas/ y vamos a crear el schema que se va a llamar userMovies, esté eschema lo que nos permite es que cuando hagamos llamado a nuestros endpoints podamos tener el formato correcto de estos endpoints.
+
+    .-Ahora vamos a crear un servicio, para eso vamos a la carpeta de services y vamos a crear un servicio que se va ha llamar userMovies.js Como los usuarios de las peliculas van a ser manipulados de diferentes maneras, vamos a crear unos métodos que serán para obtener las peliculas del usuario, apartir de un userId, también vamos a tener el método que nos va ha permitir crear una pelicula del usuario, esto quiere decir cuando el usuario quiera agregar una pelicula a su lista de favoritos, y finalmente el usuario también va ha poder eliminar una pelicula de su lista de favoritos. Con nuestro servicio ya implementado vamos a implementar la ruta que le da manejo ha esté servicio, vamos a implemenar la ruta que le da manejo ha esté servicio.
+
+    .-
+    En la carpeta de routes vamos a crear una nueva ruta que se va ha llamar userMovies.js Despues de crear nuestro archivo userMovies.js en nuestra carpeta de routes pasamos a implementarlo haciendo uso de los schemas y servicios que creamos.
+
+# 4.- Implementando el POST y DELETE de las peliculas de usuario En está clase vamos a continuar con la implementación de las rutas del usuario, en esta ocación vamos a hacer la implementación de la creación de las peliculas de usuario y la implementación de la eliminación de las peliculas del usuario dentro de /routes/userMovies.js .
+
+    .-Ahora para poder usar nuestra ruta, debemos ir a nuestro archivo index.js de nuestro proyecto y aquí vamos a hacer uso de nuestra ruta.

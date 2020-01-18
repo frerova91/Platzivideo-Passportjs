@@ -8,6 +8,7 @@ const { config } = require('./config/index');
 
 //Rutas
 const moviesApi = require('./routes/movies');
+const userMoviesApi = require('./routes/userMovies');
 
 //Errors
 const {
@@ -21,7 +22,9 @@ const notFoundHandler = require('./utils/middleware/notFoundHandler');
 // body Parse, parsea los datos como json lo que permite interpretarlos.
 app.use(express.json());
 
+//Using routes
 moviesApi(app);
+userMoviesApi(app);
 
 //Catch Error 404
 app.use(notFoundHandler);
