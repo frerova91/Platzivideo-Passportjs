@@ -16,4 +16,12 @@
     .- vamos a postman para verificar los endpoints, hay una imagen en las carpetas del curso.
     .- asi podremos ver peliculas con sus datos y con su id podemos harcer busquedas para verificar la informacion.
 
-# 2.-
+# 2.-Agregando coleción de usuarios, En está clase vamos a agregar el esquema de los usuarios y el servicio de los usuarios y vamos ver como lo podemos hacer en el código.
+
+    .-Vamos a crear un nuevo schema en nuestra carpeta/utils/schemas/users.js, aquí lo que vamos a hacer es requerir una    librería que se llama joi, está librería lo que nos permite es definir el schema que va ha ser usado en la           collection de usuarios.
+
+    .-Ahora nos disponemos a crear el servicio, para ello nos vamos a ir a nuestra carpeta de services/users.js;
+
+    .- instalamos, npm i bcrypt para encriptar las contraseñas
+
+# 3.-
