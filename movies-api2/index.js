@@ -37,5 +37,6 @@ app.use(errorHandler);
 //-------------------- Middlewares -------------------------
 
 app.listen(config.port, function() {
+  // eslint-disable-next-line no-console
   console.log(`Listening http://localhost:${config.port}`);
 });
