@@ -16,27 +16,32 @@ const UsersService = require('../../../services/users');
 //Definicion de la estrategia para passport
 passport.use(
   new BasicStrategy(async function(email, password, cb) {
-    const userService = new UsersService();
+    const usersService = new UsersService();
 
     try {
       //Regresa user
-      const user = await userService.getUser({ email });
+      const users = await usersService.getUser({ email });
 
       //No existe usuario
-      if (!user) {
-        return cb(boom.unauthorized(), false);
+      if (users === undefined || null) {
+        return cb(boom.unauthorized(`User not found:${user}`), false);
       }
 
-      //Es similar ?
-      if (!(await bcrypt.compare(password, user.password))) {
-        return cb(boom.unauthorized(), false);
+      if (!(await bcrypt.compare(password, users.password))) {
+        //Es similar ?
+        return cb(
+          boom.unauthorized(
+            `Compare Error => APP:${password}, DataB:${users.password}`
+          ),
+          false
+        );
       }
 
       //Borrando el passdord del objeto user asegurandonos de que no sea visible.
-      delete user.password;
+      delete users.password;
 
       //pasando el usuario
-      return cb(null, user);
+      return cb(null, users);
     } catch (error) {
       return cb(error);
     }

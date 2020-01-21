@@ -64,3 +64,17 @@
 # 7 .-Implementación de BasicStrategy con Passport.js, En esta clase aprenderás como implementar estrategias de autenticación haciendo uso de Passport.js. Las estrategias de autenticación nos sirven para determinar como nos vamos a autenticar, haciendo uso de estas estrategias en las diferentes rutas y así definir de donde saldra el usuario que vamos a usar de ahí en adelante, vamos a verlo como se hace en el código.
 
         .-Lo primero que vamos a hacer es crear un carpetas y archivos /utils/auth/strategies y dentro los archivos basic.js.
+
+# 8.- Vamos a implementar ahora la estrategia de JWT donde recibiremos un JWT y apartir del token decodificado buscaremos al usuario.
+
+    .- Creamos un nuevo archivo llamado jwt.js dentro de nuestra carpeta de strategies donde vivira esta estrategia.
+
+# 9.- Implementación de nuestro Sign-in Ya que hemos implementado nuestras estrategias, ahora vamos a implementar la ruta de Sign In.
+
+    .-Antes de implementar nuestra ruta debemos crear un nuevo servicio, llamado apiKeys.js, esté servicio nos va ha permitir que apartir de un API-Key-Token podamos obtener los scopes que es requerido a la hora de hacer Sign In a la hora de firmar un JWT con los scopes correspondientes deacuerdo al API Token que nosotros enviemos.
+
+    .-Ahora creamos una nueva ruta que se va ha llamar auth.js
+
+    .-Ahora nos vamos a nuestro archivo index.js y agregamos la nueva ruta que acabamos de crear.
+
+    .-Levantamos el servidor y toca ir a probar nuestra ruta de signIn usando Postman. Vamos a hacer un request de tipo POST a la ruta localhost:300/api/auth/sign-in/ en el vamos a hacer una Authorization de tipo Basic Auth. Y en el body tenemos que enviar el API_TOKEN el cual copiamos de nuestro archivo .env.

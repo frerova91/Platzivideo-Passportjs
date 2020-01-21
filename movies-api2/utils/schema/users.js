@@ -12,11 +12,11 @@ const userSchema = {
     .string()
     .email()
     .required(),
-  password: joi.string().required(),
-  isAdmin: joi.boolean()
+  password: joi.string().required()
+  //isAdmin: joi.boolean()
 };
 
-/* const createUserSchema = {
+const createUserSchema = {
   ...userSchema,
   isAdmin: joi.boolean()
 };
@@ -24,10 +24,10 @@ const userSchema = {
 const createProviderUserSchema = {
   ...userSchema,
   apiKeyToken: joi.string().required()
-}; */
+};
 
 module.exports = {
   userIdSchema,
-  createUserSchema
-  /* createProviderUserSchema */
+  createUserSchema,
+  createProviderUserSchema
 };

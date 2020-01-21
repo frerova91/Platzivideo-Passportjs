@@ -1,7 +1,7 @@
 {
   "name": "movies-api",
   "version": "1.0.0",
-  "description": "1.- creamos la carpeta donde estamos movies-api     2.- npm init -y , para iniciar el proyecto     3.- Copiamos las reglas de eslint de platzivideo",
+  "description": "Descripcion",
   "main": "index.js",
   "scripts": {
     "dev": "DEBUG=app:* & nodemon index",
