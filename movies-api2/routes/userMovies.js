@@ -5,9 +5,9 @@ const UserMoviesService = require('../services/userMovies');
 const validationHandler = require('../utils/middleware/validationHandler');
 
 // importamos los schemas para generar la validation
-const { movieIdSchema } = require('../utils/schemas/movies');
-const { userIdSchema } = require('../utils/schemas/users');
-const { createUserMovieShema } = require('../utils/schemas/userMovies');
+const { movieIdSchema } = require('../utils/schema/movies');
+const { userIdSchema } = require('../utils/schema/users');
+const { createUserMovieShema } = require('../utils/schema/userMovies');
 
 function userMoviesApi(app) {
   const router = express.Router();
@@ -77,3 +77,5 @@ function userMoviesApi(app) {
     }
   );
 }
+
+module.exports = userMoviesApi;

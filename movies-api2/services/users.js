@@ -31,7 +31,7 @@ class UsersService {
     return createUserId;
   }
 
-  /*   async getOrCreateUser({ user }) {
+  async getOrCreateUser({ user }) {
     const queriedUser = await this.getUser({ email: user.email });
 
     if (queriedUser) {
@@ -40,7 +40,7 @@ class UsersService {
 
     await this.createUser({ user });
     return await this.getUser({ email: user.email });
-  } */
+  }
 }
 
 module.exports = UsersService;
