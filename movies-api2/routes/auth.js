@@ -1,3 +1,5 @@
+//Podemos implementar recordar sesión  pero para ello hayq ue hacer modificaciones mas info en el docu del curso no lo hice por no velo necesario por eso no se ve reflejado despues del anterior commit.
+
 const express = require('express');
 const passport = require('passport');
 const boom = require('@hapi/boom'); //manejo de errores

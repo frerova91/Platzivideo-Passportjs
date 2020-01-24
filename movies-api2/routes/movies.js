@@ -14,6 +14,8 @@ const {
 
 //Importando la validacion para la DB
 const validationHandler = require('../utils/middleware/validationHandler');
+//Importando la validacion de los Scopes
+const scopesValidationHandler = require('../utils/middleware/scopesValidationHandler');
 
 //Requirendo cache para algunas rutas esto se usa mayormente para el dev
 const cacheResponse = require('../utils/cacheResponse');
@@ -40,6 +42,7 @@ function moviesApi(app) {
   router.get(
     '/',
     passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['read:movies']),
     async function(req, res, next) {
       cacheResponse(res, FIVE_MINUTES_IN_SECONDS);
       //los tags probiene del query de la url recuerda response.object y request.object la lectura del curso
@@ -66,6 +69,8 @@ function moviesApi(app) {
   //NOTA: Los middleware van entre la ruta y la definicion de la ruta tantos como se quiera
   router.get(
     '/:movieId',
+    passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['read:movies']),
     validationHandler({ movieId: movieIdSchema }, 'params'),
     async function(req, res, next) {
       cacheResponse(res, SIXTY_MINUTES_IN_SECONDS);
@@ -87,6 +92,7 @@ function moviesApi(app) {
   router.post(
     '/',
     passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['create:movies']),
     validationHandler(createMovieSchema),
     async function(req, res, next) {
       //en este caso biene es del cuerpo el body con un alias para ser mas especifioc en este caso boyd: movie(alias)
@@ -108,6 +114,7 @@ function moviesApi(app) {
   router.put(
     '/:movieId',
     passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['update:movies']),
     validationHandler({ movieId: movieIdSchema }, 'params'),
     validationHandler(updateMovieSchema),
     async function(req, res, next) {
@@ -152,8 +159,9 @@ function moviesApi(app) {
   //Borrar las Peliculas
   router.delete(
     '/:movieId',
-    passport.authenticate('jwt', { session: false }),
-    validationHandler({ movieId: movieIdSchema }, 'params'),
+    passport.authenticate('jwt', { session: false }), //Validar Autenticacion
+    scopesValidationHandler(['delete:movies']), //Validar Permisos Necesarios
+    validationHandler({ movieId: movieIdSchema }, 'params'), //Validar que los Datos esten Correctos
     async function(req, res, next) {
       const { movieId } = req.params;
       try {

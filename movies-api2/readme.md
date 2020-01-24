@@ -96,4 +96,12 @@
 
     .-En el documento del curso hay mas sobre el codigo y opiniones de estudiantes y profe.
 
-# 13.-
+# 13.- Middleware para el manejo de scopes
+
+    .-Para ello primero vamos a crear un nuevo middleware llamado scopesValidationHandler.js
+
+    .- luego de crear la logica del archivo vamos a importarlo en las rutas de movies.js y userMivies.js para portegerlas.
+
+    .- por ultimo levantamos el server y probamos con postman hay un procedimiento de como crear varibles para los tokens asi como url y un codigo de testeo en la parte de test de postman buscalo en las imagenes del cruso.
+
+# 14 Ahora vamos a implementar el SSR server.
