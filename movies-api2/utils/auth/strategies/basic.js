@@ -20,28 +20,27 @@ passport.use(
 
     try {
       //Regresa user
-      const users = await usersService.getUser({ email });
+      const user = await usersService.getUser({ email });
 
       //No existe usuario
-      if (users === undefined || null) {
+      if (!user) {
         return cb(boom.unauthorized(`User not found:${user}`), false);
       }
 
-      if (!(await bcrypt.compare(password, users.password))) {
+      if (!(await bcrypt.compare(password, user.password))) {
         //Es similar ?
         return cb(
-          boom.unauthorized(
-            `Compare Error => APP:${password}, DataB:${users.password}`
-          ),
+          boom.unauthorized(),
+          //`Compare Error => APP:${password}, DataB:${user.password}`
           false
         );
       }
 
       //Borrando el passdord del objeto user asegurandonos de que no sea visible.
-      delete users.password;
+      delete user.password;
 
       //pasando el usuario
-      return cb(null, users);
+      return cb(null, user);
     } catch (error) {
       return cb(error);
     }

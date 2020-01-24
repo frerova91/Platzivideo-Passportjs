@@ -78,3 +78,22 @@
     .-Ahora nos vamos a nuestro archivo index.js y agregamos la nueva ruta que acabamos de crear.
 
     .-Levantamos el servidor y toca ir a probar nuestra ruta de signIn usando Postman. Vamos a hacer un request de tipo POST a la ruta localhost:300/api/auth/sign-in/ en el vamos a hacer una Authorization de tipo Basic Auth. Y en el body tenemos que enviar el API_TOKEN el cual copiamos de nuestro archivo .env.
+
+# 10.- Implementación de nuestro Sign-up, En el modulo pasado implementamos la ruta de sign-in, al autenticar estamos devolviendo los scopes de api-token en el JWT, en esté modulo vamos a implementar la ruta de sign-up.
+
+    .-En nuestro archivo routes/auth.js vamos a importar el UsersService.js porque con esté vamos a usar el método para crear usuarios el cual está úbicado en la carpeta de services, también como necesitamos validar que los datos del usuario son correctos vamos a importar el validationHandler.js que está en la ruta de ../movies-api/utils/middleware/validationHandler y finalmente necesitamos el schema de crear usuario para lo cuál igual tenemos que importar el {createUserSchema} = require('../movies-api/utils/schemas/users').
+
+    .-
+    Ahora vamos a Postman y creamos el usuario enviandolo por el body como un JSON. Cuando el usuario halla sido creado incluso podemos hacer un sign in para verificar que se hallá creado correctamente y nos devolverá el token con la información del usuario.
+
+# 11.- Protegiendo nuestras rutas con Passport.js, En esté modulo vamos a aprender como podemos proteger nuestras rutas de la API, haciendo uso de Passport.js. Lo que vamos a hacer es que vamos a proteger nuestras rutas de movies y userMovies. Para eso vamos a importar nuestra estrategia de JWT, es bastante fácil poder proteger nuestras rutas, lo único que tenemos que hacer es hacer uso de passport y hacemos passport.autenticate en el vamos a definir que la estrategia que vamos a ocupar es jwt y definimos que la sessión va ha ser false.
+
+    .-finalmente hay que testear con postman las rutas para ver que estan protegidas si hacemos un request de http://localhost:3000/api/movies podremos ver que no estamos autorizados.
+
+    .- para lograr autorizarnos hay que enviar un bearer Token en la parte de autenticacion de los request con un token valido para hacer log in claro antes hay que hacer sing-in para poder obtener el token para hacer el sign-up.
+
+# 12.- Implementando recordar sesión Generalmente cuando queremos implementar la opción de recordar sesión para Express mediante passport, lo que hacemos es extender la expiración de la Cookie.
+
+    .-En el documento del curso hay mas sobre el codigo y opiniones de estudiantes y profe.
+
+# 13.-

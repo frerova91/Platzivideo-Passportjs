@@ -1,6 +1,7 @@
 //este archivo nos servira de momento para prubas y entender como definir las rutas, mas adelante conectaremos con bases de datos y eso.
 
 const express = require('express');
+const passport = require('passport');
 //Archivo de datos falsos datos de pruebas ---Eliminamos la capa de mocks para usar la de servicios
 const MoviesServices = require('../services/movies');
 
@@ -22,6 +23,9 @@ const {
   SIXTY_MINUTES_IN_SECONDS
 } = require('../utils/time');
 
+// JWT Strategy
+require('../utils/auth/strategies/jwt');
+
 //funcion que consume una app de express
 function moviesApi(app) {
   const router = express.Router();
@@ -30,24 +34,30 @@ function moviesApi(app) {
   //Instanciando un nuevo servicio
   const moviesServices = new MoviesServices();
 
-  //Aqui definimos las rutas
-  router.get('/', async function(req, res, next) {
-    cacheResponse(res, FIVE_MINUTES_IN_SECONDS);
-    //los tags probiene del query de la url recuerda response.object y request.object la lectura del curso
-    const { tags } = req.query;
-    try {
-      //getMovies probiene del la capa de servicios
-      const movies = await moviesServices.getMovies({ tags });
-      //Hardcode Error para ver un error
-      //throw new Error('error for testing propuses');
-      res.status(200).json({
-        data: movies,
-        massage: 'movies Listed'
-      });
-    } catch (err) {
-      next(err);
+  //-----------------    Aqui definimos las rutas   -----------------------------
+
+  //Aqui passport actua como un middleware y en este caso no requiere de un custom callback, de esta forma protegemos nuestros endpoint con passport. Cn lo que la unica manera de obtener acceso es si tenemos un jwt valido.
+  router.get(
+    '/',
+    passport.authenticate('jwt', { session: false }),
+    async function(req, res, next) {
+      cacheResponse(res, FIVE_MINUTES_IN_SECONDS);
+      //los tags probiene del query de la url recuerda response.object y request.object la lectura del curso
+      const { tags } = req.query;
+      try {
+        //getMovies probiene del la capa de servicios
+        const movies = await moviesServices.getMovies({ tags });
+        //Hardcode Error para ver un error
+        //throw new Error('error for testing propuses');
+        res.status(200).json({
+          data: movies,
+          massage: 'movies Listed'
+        });
+      } catch (err) {
+        next(err);
+      }
     }
-  });
+  );
 
   //NOTA:La diferencia principal entre parametros y query es que: los parametros estan establecidos en l url y query es cuando se le pone ?-nombreQuery- y ademas se puede concatenar.
 
@@ -74,28 +84,30 @@ function moviesApi(app) {
   );
 
   //Creando y recibiendo la pelicula
-  router.post('/', validationHandler(createMovieSchema), async function(
-    req,
-    res,
-    next
-  ) {
-    //en este caso biene es del cuerpo el body con un alias para ser mas especifioc en este caso boyd: movie(alias)
-    const { body: movie } = req;
-    try {
-      const createMovieId = await moviesServices.createMovie({ movie });
-      //cuando creamos el codigo es 201
-      res.status(201).json({
-        data: createMovieId,
-        massage: 'Movies created'
-      });
-    } catch (err) {
-      next(err);
+  router.post(
+    '/',
+    passport.authenticate('jwt', { session: false }),
+    validationHandler(createMovieSchema),
+    async function(req, res, next) {
+      //en este caso biene es del cuerpo el body con un alias para ser mas especifioc en este caso boyd: movie(alias)
+      const { body: movie } = req;
+      try {
+        const createMovieId = await moviesServices.createMovie({ movie });
+        //cuando creamos el codigo es 201
+        res.status(201).json({
+          data: createMovieId,
+          massage: 'Movies created'
+        });
+      } catch (err) {
+        next(err);
+      }
     }
-  });
+  );
 
   //Actualizando las peliculas
   router.put(
     '/:movieId',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ movieId: movieIdSchema }, 'params'),
     validationHandler(updateMovieSchema),
     async function(req, res, next) {
@@ -140,6 +152,7 @@ function moviesApi(app) {
   //Borrar las Peliculas
   router.delete(
     '/:movieId',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ movieId: movieIdSchema }, 'params'),
     async function(req, res, next) {
       const { movieId } = req.params;

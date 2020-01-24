@@ -1,8 +1,12 @@
 //ruta para manejar los servicios de userMovies.js
 const express = require('express');
+const passport = require('passport');
 
 const UserMoviesService = require('../services/userMovies');
 const validationHandler = require('../utils/middleware/validationHandler');
+
+//importando la estrategia JWT de passport
+require('../utils/auth/strategies/jwt');
 
 // importamos los schemas para generar la validation
 const { movieIdSchema } = require('../utils/schema/movies');
@@ -17,6 +21,7 @@ function userMoviesApi(app) {
 
   router.get(
     '/',
+    passport.authenticate('jwt', { session: false }), //Implementando passport protection.
     validationHandler({ userId: userIdSchema }, 'query'),
     async (req, res, next) => {
       const { userId } = req.query;
@@ -36,6 +41,7 @@ function userMoviesApi(app) {
 
   router.post(
     '/',
+    passport.authenticate('jwt', { session: false }),
     validationHandler(createUserMovieShema),
     async (req, res, next) => {
       const { body: userMovie } = req;
@@ -58,6 +64,7 @@ function userMoviesApi(app) {
 
   router.delete(
     '/:userMovieId',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ userMovieId: movieIdSchema }, 'params'),
     async (req, res, next) => {
       const { userMovieId } = req.params;
