@@ -7,12 +7,12 @@ const { config } = require('../../../config/index');
 passport.use(
   new BasicStrategy(async function(email, password, cb) {
     try {
-      //haciendo un request a nuestro server-api
       const { data, status } = await axios({
-        url: `${config.apiUrl}/api/auth/sign-in`,
-        mathod: 'post',
+        //objeto de consifugracion de axiso
+        url: `${config.apiUrl}/api/auth/sign-in`, //haciendo un request a nuestro server-api
+        method: 'post',
         auth: {
-          password,
+          password: password,
           username: email
         },
         data: {
