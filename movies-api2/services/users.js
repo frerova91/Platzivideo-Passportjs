@@ -31,6 +31,7 @@ class UsersService {
     return createUserId;
   }
 
+  //metodo para el uso de oauth con google.
   async getOrCreateUser({ user }) {
     const queriedUser = await this.getUser({ email: user.email });
 
