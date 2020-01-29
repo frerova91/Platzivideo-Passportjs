@@ -18,9 +18,6 @@ require('./utils/auth/strategies/basic');
 // Oauth Strategy
 require('./utils/auth/strategies/oauth');
 
-//Connect ID Strategy
-require('./utils/auth/strategies/google');
-
 //--------------- implementando las rurtas ------------------------
 
 app.post('/auth/sign-in', async function(req, res, next) {
@@ -122,18 +119,17 @@ app.delete('/user-movies/:userMovieId', async function(req, res, next) {
   }
 });
 
-//Este endpoint que se encarga de empezar el proceso de autenticacion con google,Autenticación con Google usando OpenID Connect  nuestra implementación de autenticación con Google pero mucho más sencilla. la anterior las rutas estan en el archivo index-old para ejemplo, que eran de Google API para hacer autenticación con 0Auth 2.0.
-
+//endpint que se encarga de empezar el proceso de autenticacion con google
 app.get(
-  '/auth/google',
-  passport.authenticate('google', {
+  '/auth/google-oauth',
+  passport.authenticate('google-oauth', {
     scope: ['email', 'profile', 'openid']
   })
 );
 
 app.get(
-  '/auth/google/callback',
-  passport.authenticate('google', { session: false }),
+  '/auth/google-oauth/callback',
+  passport.authenticate('google-oauth', { session: false }),
   function(req, res, next) {
     if (!req.user) {
       next(boom.unauthorized());

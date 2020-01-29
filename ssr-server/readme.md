@@ -32,3 +32,9 @@
 
     .-Y seguimos con la creacion de la ruta en movies-api2/routes/auth.js la ruta se llama:
     '/sign-provider',
+
+    .- luego iniciamos el ssr-server y el movies-api2 server
+
+    .- Y al final vamos al navegador y colocamos http://localhost:8000/auth/google-oauth el cual nos redirigira a una àgina para hacer login con una cuenta google regresandonos la info del usuario.
+
+# 6.-
