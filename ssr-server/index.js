@@ -15,6 +15,9 @@ app.use(cookieParse());
 // Basic Strategy
 require('./utils/auth/strategies/basic');
 
+// Oauth Strategy
+require('./utils/auth/strategies/oauth');
+
 //--------------- implementando las rurtas ------------------------
 
 app.post('/auth/sign-in', async function(req, res, next) {
@@ -115,6 +118,33 @@ app.delete('/user-movies/:userMovieId', async function(req, res, next) {
     next(error);
   }
 });
+
+//endpint que se encarga de empezar el proceso de autenticacion con google
+app.get(
+  '/auth/google-oauth',
+  passport.authenticate('google-oauth', {
+    scope: ['email', 'profile', 'openid']
+  })
+);
+
+app.get(
+  '/auth/google-oauth/callback',
+  passport.authenticate('google-oauth', { session: false }),
+  function(req, res, next) {
+    if (!req.user) {
+      next(boom.unauthorized());
+    }
+
+    const { token, ...user } = req.user;
+
+    res.cookie('token', token, {
+      httpOnly: !config.dev,
+      secure: !config.dev
+    });
+
+    res.status(200).json(user);
+  }
+);
 
 app.listen(config.port, function() {
   // eslint-disable-next-line no-console
