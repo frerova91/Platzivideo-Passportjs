@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require('helmet');
 const app = express();
 
 //Variables de Entorno
@@ -22,6 +23,7 @@ const notFoundHandler = require('./utils/middleware/notFoundHandler');
 
 // body Parse, parsea los datos como json lo que permite interpretarlos.
 app.use(express.json());
+app.use(helmet());
 
 //Using routes
 moviesApi(app);
