@@ -1,6 +1,8 @@
 const express = require('express');
+const helmet = require('helmet');
 const passport = require('passport');
 const boom = require('@hapi/boom');
+const session = require('express-session');
 const cookieParse = require('cookie-parser');
 const axios = require('axios');
 
@@ -10,7 +12,11 @@ const app = express();
 
 // body parser
 app.use(express.json());
+app.use(helmet());
 app.use(cookieParse());
+app.use(session({ session: config.sessionSecret }));
+app.use(passport.initialize()); //inicializando sesion
+app.use(passport.session());
 
 // Basic Strategy
 require('./utils/auth/strategies/basic');
@@ -20,6 +26,9 @@ require('./utils/auth/strategies/oauth');
 
 //Connect ID Strategy
 require('./utils/auth/strategies/google');
+
+// Twitter Strategy
+require('./utils/auth/strategies/twitter');
 
 //--------------- implementando las rurtas ------------------------
 
@@ -122,6 +131,8 @@ app.delete('/user-movies/:userMovieId', async function(req, res, next) {
   }
 });
 
+//GOOGLE
+
 //Este endpoint que se encarga de empezar el proceso de autenticacion con google,Autenticación con Google usando OpenID Connect  nuestra implementación de autenticación con Google pero mucho más sencilla. la anterior las rutas estan en el archivo index-old para ejemplo, que eran de Google API para hacer autenticación con 0Auth 2.0.
 
 app.get(
@@ -135,6 +146,28 @@ app.get(
   '/auth/google/callback',
   passport.authenticate('google', { session: false }),
   function(req, res, next) {
+    if (!req.user) {
+      next(boom.unauthorized());
+    }
+
+    const { token, ...user } = req.user;
+
+    res.cookie('token', token, {
+      httpOnly: !config.dev,
+      secure: !config.dev
+    });
+
+    res.status(200).json(user);
+  }
+);
+
+//TWITTER
+app.get('/auth/twitter', passport.authenticate('twitter'));
+
+app.get(
+  '/auth/twitter/callback',
+  passport.authenticate('twitter', { session: false }),
+  async function(req, res, next) {
     if (!req.user) {
       next(boom.unauthorized());
     }

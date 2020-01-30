@@ -37,4 +37,31 @@
 
     .- Y al final vamos al navegador y colocamos http://localhost:8000/auth/google-oauth el cual nos redirigira a una àgina para hacer login con una cuenta google regresandonos la info del usuario.
 
-# 6.-
+# 6.- Autenticación con Google usando OpenID Connect implementacion, este metodo nos ayudara a implementar mas facil google autenticate.
+
+    .-Hacemos el mismo procedimiento de antes solo que vamos a hacer ahora esto:
+
+        .-instalamos npm install passport-google-oauth
+        .- luego creamos un servicio ssr-server/utils/auth/strategies/google.js
+        .- y luego las rutas en index.js
+
+# 7.- A continuacion vamos a solicitar una cuenta de developer para twitter y luego de que pase la aceptacion vamos a proceder a crear la logica en el server.
+
+    1.- vamos a crear SESSION_SECRET con sun sha 256 y TWITTER_CONSUMER_KEY y TWITTER_CONSUMER_SECRET otorgado por twitter y su cnfiguracion en /config/index.js
+
+    2.- luego vamos a crear la estrategia utils/auth/strategies/twitter.js
+
+    3.- ahora vamos al ssr-server y aplicamos la logica para la implementacion de esta api para twitter.
+
+    4.- luego levantamos los 2 servers ssr y api server y luego vamos al navegador e ingresamos http://localhost:8000/auth/twitter para probar el login.
+
+# 8.-Aqui tendriamos la implementacion de facebook pero me la saltare por cuestiones de tiempo.
+
+# 9.-Seguridad con Helmet y npm audit
+
+    1.- Vamos a trabajar en nuestro server movies-api2 donde instalaremos npm i helmet
+    2.-luego en index.js y requerimos helmet y lo implementamos con app.use(helmet()) asi ya esta implementado pero podemos pasarle dentro de helmet(!aqui!) unos parametros de configuracion ver la docu oficial en su pagina para mas info.
+    3.-Ahora vamos a hacer esto mismo para el render server.
+    4.- ahora vamos aver como podemos detectar vulnerabilidades npm audit todo en las imagenes. Snyk permite automatizar este proceso.
+
+# 10.- Que és OWASP y buenas prácticas de seguridad e integracion de snyk con github para automatizacion de npm audit para proyectos. es una lectura ve los documentos del curso
